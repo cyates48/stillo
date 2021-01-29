@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-stillo-dev-211048-authRole",
+      "UnauthRoleArn": "arn:aws:iam::254655846026:role/amplify-stillo-dev-211048-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::254655846026:role/amplify-stillo-dev-211048-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-stillo-dev-211048-deployment",
+      "UnauthRoleName": "amplify-stillo-dev-211048-unauthRole",
+      "StackName": "amplify-stillo-dev-211048",
+      "StackId": "arn:aws:cloudformation:us-east-2:254655846026:stack/amplify-stillo-dev-211048/5a93e7e0-61f0-11eb-a994-022645ac9958",
+      "AmplifyAppId": "dayxvs1nxc80l"
+    },
+    "categories": {
+      "auth": {
+        "stillo82b4c408": {}
+      }
+    }
+  }
+}
