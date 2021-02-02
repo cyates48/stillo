@@ -1,5 +1,7 @@
-type Todo @model {
+type Service @model @auth(rules: [{allow: public}]) {
   id: ID!
-  name: String!
-  description: String
+  name: String
+  duration: String
+  price: String
 }
+ 

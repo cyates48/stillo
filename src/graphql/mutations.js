@@ -1,43 +1,55 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createService = /* GraphQL */ `
+  mutation CreateService(
+    $input: CreateServiceInput!
+    $condition: ModelServiceConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createService(input: $input, condition: $condition) {
       id
       name
-      description
+      duration
+      price
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateService = /* GraphQL */ `
+  mutation UpdateService(
+    $input: UpdateServiceInput!
+    $condition: ModelServiceConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updateService(input: $input, condition: $condition) {
       id
       name
-      description
+      duration
+      price
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteService = /* GraphQL */ `
+  mutation DeleteService(
+    $input: DeleteServiceInput!
+    $condition: ModelServiceConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deleteService(input: $input, condition: $condition) {
       id
       name
-      description
+      duration
+      price
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }

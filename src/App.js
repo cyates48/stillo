@@ -1,67 +1,105 @@
 import React, { useEffect, useState } from 'react'
 import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from './graphql/mutations'
-import { listTodos } from './graphql/queries'
+import { createService } from './graphql/mutations'
+import { listServices } from './graphql/queries'
 import { withAuthenticator } from '@aws-amplify/ui-react'
+import { DataStore } from 'aws-amplify';
+import { Service } from './models'
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
-const initialState = { name: '', description: '' }
+const initialState = {serviceName: '', serviceDuration: '', servicePrice: '' }
 
 const App = () => {
   const [formState, setFormState] = useState(initialState)
-  const [todos, setTodos] = useState([])
+  const [services, setServices] = useState([])
 
   useEffect(() => {
-    fetchTodos()
+    fetchServices()
   }, [])
 
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value })
   }
 
-  async function fetchTodos() {
+  async function fetchServices() {
     try {
-      const todoData = await API.graphql(graphqlOperation(listTodos))
-      const todos = todoData.data.listTodos.items
-      setTodos(todos)
-    } catch (err) { console.log('error fetching todos') }
+      const serviceData = await API.graphql(graphqlOperation(listServices))
+      const services = serviceData.data.listServices.items
+      setServices(services)
+    } catch (err) { 
+      console.log('error fetching services with API: ', err) 
+    }
   }
 
-  async function addTodo() {
+  async function addServiceDataStore() {
     try {
-      if (!formState.name || !formState.description) return
-      const todo = { ...formState }
-      setTodos([...todos, todo])
+      const service = {
+        name: formState.serviceName,
+        duration: formState.serviceDuration,
+        price: formState.servicePrice
+      }
+      setServices([...services, service])
       setFormState(initialState)
-      await API.graphql(graphqlOperation(createTodo, {input: todo}))
+      await DataStore.save(
+        new Service(service)
+      );
+    } catch(e){
+      console.log(e)
+    }
+  }
+
+  async function addServiceAPI() {
+    try {
+      const service = {
+        name: formState.serviceName,
+        duration: formState.serviceDuration,
+        price: formState.servicePrice
+      }
+      setServices([...services, service])
+      setFormState(initialState)
+      await API.graphql(graphqlOperation(createService, {input: service}))
     } catch (err) {
-      console.log('error creating todo:', err)
+      console.log('error creating services with API:', err)
     }
   }
 
   return (
     <div style={styles.container}>
-      <h2>Amplify Todos</h2>
+      <br/>
+      <h2>Services</h2>
       <input
-        onChange={event => setInput('name', event.target.value)}
+        onChange={event => setInput('serviceName', event.target.value)}
         style={styles.input}
-        value={formState.name}
+        value={formState.serviceName}
         placeholder="Name"
       />
       <input
-        onChange={event => setInput('description', event.target.value)}
+        onChange={event => setInput('serviceDuration', event.target.value)}
         style={styles.input}
-        value={formState.description}
-        placeholder="Description"
+        value={formState.serviceDuration}
+        placeholder="Duration"
       />
-      <button style={styles.button} onClick={addTodo}>Create Todo</button>
+      <input
+        onChange={event => setInput('servicePrice', event.target.value)}
+        style={styles.input}
+        value={formState.servicePrice}
+        placeholder="Price"
+      />
+      <br/>
+      <button style={styles.button} onClick={addServiceDataStore}>Create Service (DataStore)</button>
+      <br/>
+      <button style={styles.button} onClick={addServiceAPI}>Create Service (API)</button>
+      <br/>
+      <br/>
+      <br/>
       {
-        todos.map((todo, index) => (
-          <div key={todo.id ? todo.id : index} style={styles.todo}>
-            <p style={styles.todoName}>{todo.name}</p>
-            <p style={styles.todoDescription}>{todo.description}</p>
+        services.map((service, index) => (
+          <div key={service.id ? service.id : index} style={styles.todo}>
+            <p style={styles.todoName}>{service.name}</p>
+            <p style={styles.todoDescription}>{service.duration}</p>
+            <p style={styles.todoDescription}>{service.price}</p>
           </div>
         ))
       }
