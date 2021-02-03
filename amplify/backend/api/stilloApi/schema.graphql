@@ -1,4 +1,4 @@
-type Service @model @auth(rules: [{allow: public}]) {
+type Service @model @auth(rules: [{allow: owner, identityClaim: "sub", operations: [read, create, update, delete]}]) {
   id: ID!
   name: String
   duration: String

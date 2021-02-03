@@ -3,7 +3,7 @@ import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import { createService } from './graphql/mutations'
 import { listServices } from './graphql/queries'
 import { withAuthenticator } from '@aws-amplify/ui-react'
-import { DataStore } from 'aws-amplify';
+import { Auth, DataStore } from 'aws-amplify';
 import { Service } from './models'
 
 import awsExports from "./aws-exports";
@@ -17,6 +17,7 @@ const App = () => {
 
   useEffect(() => {
     fetchServices()
+    getUser()
   }, [])
 
   function setInput(key, value) {
@@ -65,6 +66,19 @@ const App = () => {
     }
   }
 
+  async function signOut() {
+    try {
+        await Auth.signOut();
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+  }
+
+  async function getUser() {
+    let user = await Auth.currentAuthenticatedUser();
+    console.log('user: ', user);
+  }
+
   return (
     <div style={styles.container}>
       <br/>
@@ -103,7 +117,11 @@ const App = () => {
           </div>
         ))
       }
+      <br/>
+      <br/>
+      <button style={styles.button} onClick={signOut}>Sign Out</button>
     </div>
+
   )
 }
 
