@@ -5,6 +5,7 @@ import { listServices } from "./graphql/queries";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Auth, DataStore } from "aws-amplify";
 import { Service } from "./models";
+import Appointment from "./components/Appointment/Appointment";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -74,51 +75,60 @@ const App = () => {
 
   async function getUser() {
     let user = await Auth.currentAuthenticatedUser();
-    console.log("user: ", user);
+    // console.log("user: ", user);
   }
+
+  const showServicesMenu = () => {
+    return (
+      <div style={styles.container}>
+        <br />
+        <h2>Services</h2>
+        <input
+          onChange={(event) => setInput("serviceName", event.target.value)}
+          style={styles.input}
+          value={formState.serviceName}
+          placeholder="Name"
+        />
+        <input
+          onChange={(event) => setInput("serviceDuration", event.target.value)}
+          style={styles.input}
+          value={formState.serviceDuration}
+          placeholder="Duration"
+        />
+        <input
+          onChange={(event) => setInput("servicePrice", event.target.value)}
+          style={styles.input}
+          value={formState.servicePrice}
+          placeholder="Price"
+        />
+        <br />
+        <button style={styles.button} onClick={addServiceDataStore}>
+          Create Service (DataStore)
+        </button>
+        <br />
+        <button style={styles.button} onClick={addServiceAPI}>
+          Create Service (API)
+        </button>
+        <br />
+        <br />
+        <br />
+        {services.map((service, index) => (
+          <div key={service.id ? service.id : index} style={styles.todo}>
+            <p style={styles.todoName}>{service.name}</p>
+            <p style={styles.todoDescription}>{service.duration}</p>
+            <p style={styles.todoDescription}>{service.price}</p>
+          </div>
+        ))}
+        <br />
+        <br />
+      </div>
+    );
+  };
 
   return (
     <div style={styles.container}>
-      <br />
-      <h2>Services</h2>
-      <input
-        onChange={(event) => setInput("serviceName", event.target.value)}
-        style={styles.input}
-        value={formState.serviceName}
-        placeholder="Name"
-      />
-      <input
-        onChange={(event) => setInput("serviceDuration", event.target.value)}
-        style={styles.input}
-        value={formState.serviceDuration}
-        placeholder="Duration"
-      />
-      <input
-        onChange={(event) => setInput("servicePrice", event.target.value)}
-        style={styles.input}
-        value={formState.servicePrice}
-        placeholder="Price"
-      />
-      <br />
-      <button style={styles.button} onClick={addServiceDataStore}>
-        Create Service (DataStore)
-      </button>
-      <br />
-      <button style={styles.button} onClick={addServiceAPI}>
-        Create Service (API)
-      </button>
-      <br />
-      <br />
-      <br />
-      {services.map((service, index) => (
-        <div key={service.id ? service.id : index} style={styles.todo}>
-          <p style={styles.todoName}>{service.name}</p>
-          <p style={styles.todoDescription}>{service.duration}</p>
-          <p style={styles.todoDescription}>{service.price}</p>
-        </div>
-      ))}
-      <br />
-      <br />
+      {/* {showServicesMenu()} */}
+      <Appointment />
       <button style={styles.button} onClick={signOut}>
         Sign Out
       </button>
