@@ -13,7 +13,9 @@ export const schema = {
                 "status": {
                     "name": "status",
                     "isArray": false,
-                    "type": "String",
+                    "type": {
+                        "enum": "AppointmentStatus"
+                    },
                     "isRequired": false,
                     "attributes": []
                 },
@@ -38,13 +40,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "serviceName": {
-                    "name": "serviceName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "duration": {
                     "name": "duration",
                     "isArray": false,
@@ -52,12 +47,18 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "price": {
-                    "name": "price",
+                "Service": {
+                    "name": "Service",
                     "isArray": false,
-                    "type": "String",
+                    "type": {
+                        "model": "Service"
+                    },
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "appointmentServiceId"
+                    }
                 }
             },
             "syncable": true,
@@ -161,7 +162,20 @@ export const schema = {
             ]
         }
     },
-    "enums": {},
+    "enums": {
+        "AppointmentStatus": {
+            "name": "AppointmentStatus",
+            "values": [
+                "SCHEDULED",
+                "COMPLETE",
+                "NOSHOW",
+                "CLIENTLATE",
+                "STYLISTLATE",
+                "CLIENTCANCELLED",
+                "STYLISTCANCELLED"
+            ]
+        }
+    },
     "nonModels": {},
-    "version": "65f52b71b22fee4cbf8a7a35f0fde11e"
+    "version": "7881ac89df8b050acdc9424ddc21364c"
 };

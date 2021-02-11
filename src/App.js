@@ -76,6 +76,16 @@ const App = () => {
   async function getUser() {
     let user = await Auth.currentAuthenticatedUser();
     // console.log("user: ", user);
+    // const service = await DataStore.query(
+    //   Service,
+    //   "89ff4f71-aa6a-4160-a69e-32a51326d4d0"
+    // );
+    // console.log(service);
+    // await DataStore.save(
+    //   Service.copyOf(service, (updated) => {
+    //     updated.name = `The Best Service Ever`;
+    //   })
+    // );
   }
 
   const showServicesMenu = () => {

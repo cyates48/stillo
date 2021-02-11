@@ -9,14 +9,24 @@ export const onCreateAppointment = /* GraphQL */ `
       clientId
       stylistId
       dateTime
-      serviceName
       duration
-      price
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Service {
+        id
+        name
+        duration
+        price
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+      }
     }
   }
 `;
@@ -28,14 +38,24 @@ export const onUpdateAppointment = /* GraphQL */ `
       clientId
       stylistId
       dateTime
-      serviceName
       duration
-      price
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Service {
+        id
+        name
+        duration
+        price
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+      }
     }
   }
 `;
@@ -47,14 +67,24 @@ export const onDeleteAppointment = /* GraphQL */ `
       clientId
       stylistId
       dateTime
-      serviceName
       duration
-      price
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Service {
+        id
+        name
+        duration
+        price
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+      }
     }
   }
 `;

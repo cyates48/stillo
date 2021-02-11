@@ -9,14 +9,24 @@ export const getAppointment = /* GraphQL */ `
       clientId
       stylistId
       dateTime
-      serviceName
       duration
-      price
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      Service {
+        id
+        name
+        duration
+        price
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+      }
     }
   }
 `;
@@ -33,14 +43,24 @@ export const listAppointments = /* GraphQL */ `
         clientId
         stylistId
         dateTime
-        serviceName
         duration
-        price
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        Service {
+          id
+          name
+          duration
+          price
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
       }
       nextToken
       startedAt
@@ -66,33 +86,27 @@ export const syncAppointments = /* GraphQL */ `
         clientId
         stylistId
         dateTime
-        serviceName
         duration
-        price
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        Service {
+          id
+          name
+          duration
+          price
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+        }
       }
       nextToken
       startedAt
-    }
-  }
-`;
-export const getService = /* GraphQL */ `
-  query GetService($id: ID!) {
-    getService(id: $id) {
-      id
-      name
-      duration
-      price
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      owner
     }
   }
 `;
@@ -117,6 +131,22 @@ export const listServices = /* GraphQL */ `
       }
       nextToken
       startedAt
+    }
+  }
+`;
+export const getService = /* GraphQL */ `
+  query GetService($id: ID!) {
+    getService(id: $id) {
+      id
+      name
+      duration
+      price
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;

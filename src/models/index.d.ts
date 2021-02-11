@@ -1,18 +1,25 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
-
+export enum AppointmentStatus {
+  SCHEDULED = "SCHEDULED",
+  COMPLETE = "COMPLETE",
+  NOSHOW = "NOSHOW",
+  CLIENTLATE = "CLIENTLATE",
+  STYLISTLATE = "STYLISTLATE",
+  CLIENTCANCELLED = "CLIENTCANCELLED",
+  STYLISTCANCELLED = "STYLISTCANCELLED"
+}
 
 
 
 export declare class Appointment {
   readonly id: string;
-  readonly status?: string;
+  readonly status?: AppointmentStatus | keyof typeof AppointmentStatus;
   readonly clientId?: string;
   readonly stylistId?: string;
   readonly dateTime?: string;
-  readonly serviceName?: string;
   readonly duration?: string;
-  readonly price?: string;
+  readonly Service?: Service;
   constructor(init: ModelInit<Appointment>);
   static copyOf(source: Appointment, mutator: (draft: MutableModel<Appointment>) => MutableModel<Appointment> | void): Appointment;
 }

@@ -1,44 +1,27 @@
-type Appointment
-  @model
-  @auth(
-    rules: [
-      {
-        allow: owner
-        identityClaim: "sub"
-        ownerField: "clientId"
-        operations: [read, create, update, delete]
-      }
-      {
-        allow: owner
-        identityClaim: "sub"
-        ownerField: "stylistId"
-        operations: [read, create, update, delete]
-      }
-    ]
-  ) {
+enum AppointmentStatus {
+  SCHEDULED
+  COMPLETE
+  NOSHOW
+  CLIENTLATE
+  STYLISTLATE
+  CLIENTCANCELLED
+  STYLISTCANCELLED
+}
+
+type Appointment @model @auth(rules: [{allow: owner, identityClaim: "sub", ownerField: "clientId", operations: [read, create, update, delete]}, {allow: owner, identityClaim: "sub", ownerField: "stylistId", operations: [read, create, update, delete]}]) {
   id: ID!
-  status: String
+  status: AppointmentStatus
   clientId: String
   stylistId: String
   dateTime: String
-  serviceName: String
   duration: String
-  price: String
+  Service: Service @connection
 }
 
-type Service
-  @model
-  @auth(
-    rules: [
-      {
-        allow: owner
-        identityClaim: "sub"
-        operations: [read, create, update, delete]
-      }
-    ]
-  ) {
+type Service @model @auth(rules: [{allow: owner, identityClaim: "sub", operations: [read, create, update, delete]}]) {
   id: ID!
   name: String
   duration: String
   price: String
 }
+ 
