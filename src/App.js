@@ -17,7 +17,7 @@ const App = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetchServices();
+    fetchServicesDataStore();
     getUser();
   }, []);
 
@@ -25,13 +25,24 @@ const App = () => {
     setFormState({ ...formState, [key]: value });
   }
 
-  async function fetchServices() {
+  async function fetchServicesAPI() {
     try {
       const serviceData = await API.graphql(graphqlOperation(listServices));
       const services = serviceData.data.listServices.items;
       setServices(services);
+      console.log("services fetched: ", services);
     } catch (err) {
       console.log("error fetching services with API: ", err);
+    }
+  }
+
+  async function fetchServicesDataStore() {
+    try {
+      const services = await DataStore.query(Service);
+      setServices(services);
+      console.log("services fetched: ", services);
+    } catch (err) {
+      console.log("error fetching services with Data Store: ", err);
     }
   }
 
@@ -75,17 +86,6 @@ const App = () => {
 
   async function getUser() {
     let user = await Auth.currentAuthenticatedUser();
-    // console.log("user: ", user);
-    // const service = await DataStore.query(
-    //   Service,
-    //   "89ff4f71-aa6a-4160-a69e-32a51326d4d0"
-    // );
-    // console.log(service);
-    // await DataStore.save(
-    //   Service.copyOf(service, (updated) => {
-    //     updated.name = `The Best Service Ever`;
-    //   })
-    // );
   }
 
   const showServicesMenu = () => {
