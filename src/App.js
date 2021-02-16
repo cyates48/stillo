@@ -138,7 +138,7 @@ const App = () => {
   return (
     <div style={styles.container}>
       {/* {showServicesMenu()} */}
-      <Appointment />
+      <Appointment services={services} />
       <button style={styles.button} onClick={signOut}>
         Sign Out
       </button>

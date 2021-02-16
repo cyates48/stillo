@@ -11,8 +11,6 @@ export const createAppointment = /* GraphQL */ `
       status
       clientId
       stylistId
-      dateTime
-      duration
       _version
       _deleted
       _lastChangedAt
@@ -43,8 +41,6 @@ export const updateAppointment = /* GraphQL */ `
       status
       clientId
       stylistId
-      dateTime
-      duration
       _version
       _deleted
       _lastChangedAt
@@ -75,8 +71,6 @@ export const deleteAppointment = /* GraphQL */ `
       status
       clientId
       stylistId
-      dateTime
-      duration
       _version
       _deleted
       _lastChangedAt

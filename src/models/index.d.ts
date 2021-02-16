@@ -17,8 +17,6 @@ export declare class Appointment {
   readonly status?: AppointmentStatus | keyof typeof AppointmentStatus;
   readonly clientId?: string;
   readonly stylistId?: string;
-  readonly dateTime?: string;
-  readonly duration?: string;
   readonly Service?: Service;
   constructor(init: ModelInit<Appointment>);
   static copyOf(source: Appointment, mutator: (draft: MutableModel<Appointment>) => MutableModel<Appointment> | void): Appointment;

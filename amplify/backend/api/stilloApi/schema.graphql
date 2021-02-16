@@ -8,20 +8,44 @@ enum AppointmentStatus {
   STYLISTCANCELLED
 }
 
-type Appointment @model @auth(rules: [{allow: owner, identityClaim: "sub", ownerField: "clientId", operations: [read, create, update, delete]}, {allow: owner, identityClaim: "sub", ownerField: "stylistId", operations: [read, create, update, delete]}]) {
+type Appointment
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "clientId"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
   status: AppointmentStatus
   clientId: String
   stylistId: String
-  dateTime: String
-  duration: String
   Service: Service @connection
 }
 
-type Service @model @auth(rules: [{allow: owner, identityClaim: "sub", operations: [read, create, update, delete]}]) {
+type Service
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
   name: String
   duration: String
   price: String
 }
- 
