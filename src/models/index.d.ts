@@ -12,6 +12,15 @@ export enum AppointmentStatus {
 
 
 
+export declare class Chat {
+  readonly id: string;
+  readonly stylistId?: string;
+  readonly clientId?: string;
+  readonly messages?: string;
+  constructor(init: ModelInit<Chat>);
+  static copyOf(source: Chat, mutator: (draft: MutableModel<Chat>) => MutableModel<Chat> | void): Chat;
+}
+
 export declare class Appointment {
   readonly id: string;
   readonly status?: AppointmentStatus | keyof typeof AppointmentStatus;

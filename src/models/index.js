@@ -12,9 +12,10 @@ const AppointmentStatus = {
   "STYLISTCANCELLED": "STYLISTCANCELLED"
 };
 
-const { Appointment, Service } = initSchema(schema);
+const { Chat, Appointment, Service } = initSchema(schema);
 
 export {
+  Chat,
   Appointment,
   Service,
   AppointmentStatus

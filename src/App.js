@@ -6,9 +6,13 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Auth, DataStore } from "aws-amplify";
 import { Service } from "./models";
 import Appointment from "./components/Appointment/Appointment";
+import Chat from "./components/Chat/Chat";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
+
+export const stylistId = "69abd1ec-4d22-4b09-a40a-20b0a9836280";
+export const clientId = "1ad7d9b4-1858-429d-a8c1-f1b963111909";
 
 const initialState = { serviceName: "", serviceDuration: "", servicePrice: "" };
 
@@ -138,7 +142,8 @@ const App = () => {
   return (
     <div style={styles.container}>
       {/* {showServicesMenu()} */}
-      <Appointment services={services} />
+      {/* <Appointment services={services} /> */}
+      <Chat />
       <button style={styles.button} onClick={signOut}>
         Sign Out
       </button>

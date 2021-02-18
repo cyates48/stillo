@@ -22,25 +22,33 @@ const Chat = () => {
     try {
       const chat = await DataStore.query(ChatModel);
       console.log("chat: ", chat);
-      setChat(chat[0]);
+      setChat(chat);
     } catch (err) {
       console.log("error fetching services with API: ", err);
     }
   }
 
   async function addMessage() {
+    const prevMessages = JSON.parse(chat[0].messages)?.text;
     try {
       const message = {
-        text: formState.text,
+        text: [...prevMessages, formState.text],
       };
-      setChat({ ...chat, messages: [...chat.messages, message] });
+      console.log(JSON.stringify(message));
+      const temp = await DataStore.save(
+        ChatModel.copyOf(chat[0], (updated) => {
+          updated.messages = JSON.stringify(message);
+        })
+      );
+      setChat([temp]);
+      console.log(temp);
       setFormState(initialState);
-      console.log("chat: ", chat);
-      await DataStore.save(new ChatModel(chat));
     } catch (e) {
       console.log(e);
     }
   }
+
+  const text = chat[0] ? JSON.parse(chat[0].messages)?.text : "Empty";
 
   return (
     <div style={styles.container}>
@@ -54,16 +62,20 @@ const Chat = () => {
       />
       <br />
       <button style={styles.button} onClick={addMessage}>
-        Create Chat
+        Add Message
       </button>
       <br />
       <br />
       <br />
-      {chat?.messages?.map((message, index) => (
-        <div key={index} style={styles.todo}>
-          <p style={styles.todoName}>{message.text}</p>
+      {chat[0] && chat[0].messages && (
+        <div style={styles.todo}>
+          <p style={styles.todoName}>
+            {text.map((message) => (
+              <div>{message}</div>
+            ))}
+          </p>
         </div>
-      ))}
+      )}
     </div>
   );
 };

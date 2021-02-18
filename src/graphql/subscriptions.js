@@ -1,6 +1,60 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateChat = /* GraphQL */ `
+  subscription OnCreateChat($clientId: String, $stylistId: String) {
+    onCreateChat(clientId: $clientId, stylistId: $stylistId) {
+      id
+      stylistId
+      clientId
+      messages {
+        NewField
+        text
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateChat = /* GraphQL */ `
+  subscription OnUpdateChat($clientId: String, $stylistId: String) {
+    onUpdateChat(clientId: $clientId, stylistId: $stylistId) {
+      id
+      stylistId
+      clientId
+      messages {
+        NewField
+        text
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteChat = /* GraphQL */ `
+  subscription OnDeleteChat($clientId: String, $stylistId: String) {
+    onDeleteChat(clientId: $clientId, stylistId: $stylistId) {
+      id
+      stylistId
+      clientId
+      messages {
+        NewField
+        text
+      }
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateAppointment = /* GraphQL */ `
   subscription OnCreateAppointment($clientId: String, $stylistId: String) {
     onCreateAppointment(clientId: $clientId, stylistId: $stylistId) {
