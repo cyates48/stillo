@@ -3,10 +3,10 @@ import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { createService } from "./graphql/mutations";
 import { listServices } from "./graphql/queries";
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import { Auth, DataStore } from "aws-amplify";
+import { Auth, DataStore, Storage } from "aws-amplify";
 import { Service } from "./models";
-import Appointment from "./components/Appointment/Appointment";
-import Chat from "./components/Chat/Chat";
+// import Appointment from "./components/Appointment/Appointment";
+// import Chat from "./components/Chat/Chat";
 
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
@@ -19,10 +19,13 @@ const initialState = { serviceName: "", serviceDuration: "", servicePrice: "" };
 const App = () => {
   const [formState, setFormState] = useState(initialState);
   const [services, setServices] = useState([]);
+  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
     fetchServicesDataStore();
     getUser();
+    getFiles();
   }, []);
 
   function setInput(key, value) {
@@ -80,6 +83,34 @@ const App = () => {
     }
   }
 
+  const onChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const uploadPhoto = (e) => {
+    Storage.put(`${file?.name}`, file, {
+      contentType: "image/png",
+      "x-amz-meta-order": "1",
+    })
+      .then((result) => console.log(result))
+      .catch((err) => console.log(err));
+  };
+
+  function getFiles() {
+    Storage.get("c_sunset.png")
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => console.log(err));
+    Storage.list("")
+      .then((result) => {
+        result.sort((a, b) => a.lastModified - b.lastModified);
+        setFiles(result);
+        console.log(result);
+      })
+      .catch((err) => console.log(err));
+  }
+
   async function signOut() {
     try {
       await Auth.signOut();
@@ -90,6 +121,7 @@ const App = () => {
 
   async function getUser() {
     let user = await Auth.currentAuthenticatedUser();
+    console.log("user: ", user);
   }
 
   const showServicesMenu = () => {
@@ -143,7 +175,11 @@ const App = () => {
     <div style={styles.container}>
       {/* {showServicesMenu()} */}
       {/* <Appointment services={services} /> */}
-      <Chat />
+      <label>file upload</label>
+      <input type="file" accept="image/png" onChange={(e) => onChange(e)} />
+      <button onClick={uploadPhoto}>Upload Photo</button>
+      <br />
+      {/* <Chat /> */}
       <button style={styles.button} onClick={signOut}>
         Sign Out
       </button>
