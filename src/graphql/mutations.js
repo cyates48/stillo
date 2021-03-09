@@ -10,10 +10,7 @@ export const createChat = /* GraphQL */ `
       id
       stylistId
       clientId
-      messages {
-        NewField
-        text
-      }
+      messages
       _version
       _deleted
       _lastChangedAt
@@ -31,10 +28,7 @@ export const updateChat = /* GraphQL */ `
       id
       stylistId
       clientId
-      messages {
-        NewField
-        text
-      }
+      messages
       _version
       _deleted
       _lastChangedAt
@@ -52,10 +46,7 @@ export const deleteChat = /* GraphQL */ `
       id
       stylistId
       clientId
-      messages {
-        NewField
-        text
-      }
+      messages
       _version
       _deleted
       _lastChangedAt
@@ -202,6 +193,60 @@ export const deleteService = /* GraphQL */ `
       name
       duration
       price
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createAlbum = /* GraphQL */ `
+  mutation CreateAlbum(
+    $input: CreateAlbumInput!
+    $condition: ModelAlbumConditionInput
+  ) {
+    createAlbum(input: $input, condition: $condition) {
+      id
+      albumCoverPhoto
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateAlbum = /* GraphQL */ `
+  mutation UpdateAlbum(
+    $input: UpdateAlbumInput!
+    $condition: ModelAlbumConditionInput
+  ) {
+    updateAlbum(input: $input, condition: $condition) {
+      id
+      albumCoverPhoto
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteAlbum = /* GraphQL */ `
+  mutation DeleteAlbum(
+    $input: DeleteAlbumInput!
+    $condition: ModelAlbumConditionInput
+  ) {
+    deleteAlbum(input: $input, condition: $condition) {
+      id
+      albumCoverPhoto
+      name
       _version
       _deleted
       _lastChangedAt

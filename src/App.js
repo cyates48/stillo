@@ -6,6 +6,7 @@ import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Auth, DataStore, Storage } from "aws-amplify";
 import { Service } from "./models";
 // import Appointment from "./components/Appointment/Appointment";
+import Album from "./components/Album/Album";
 // import Chat from "./components/Chat/Chat";
 
 import awsExports from "./aws-exports";
@@ -88,10 +89,7 @@ const App = () => {
   };
 
   const uploadPhoto = (e) => {
-    Storage.put(`${file?.name}`, file, {
-      contentType: "image/png",
-      "x-amz-meta-order": "1",
-    })
+    Storage.put("rootFolder/childFolder/" + `chris.png`, file)
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
   };
@@ -102,7 +100,7 @@ const App = () => {
         console.log(result);
       })
       .catch((err) => console.log(err));
-    Storage.list("")
+    Storage.list("rootFolder/childFolder/")
       .then((result) => {
         result.sort((a, b) => a.lastModified - b.lastModified);
         setFiles(result);
@@ -175,11 +173,8 @@ const App = () => {
     <div style={styles.container}>
       {/* {showServicesMenu()} */}
       {/* <Appointment services={services} /> */}
-      <label>file upload</label>
-      <input type="file" accept="image/png" onChange={(e) => onChange(e)} />
-      <button onClick={uploadPhoto}>Upload Photo</button>
-      <br />
       {/* <Chat /> */}
+      <Album />
       <button style={styles.button} onClick={signOut}>
         Sign Out
       </button>

@@ -39,3 +39,11 @@ export declare class Service {
   constructor(init: ModelInit<Service>);
   static copyOf(source: Service, mutator: (draft: MutableModel<Service>) => MutableModel<Service> | void): Service;
 }
+
+export declare class Album {
+  readonly id: string;
+  readonly albumCoverPhoto?: string;
+  readonly name?: string;
+  constructor(init: ModelInit<Album>);
+  static copyOf(source: Album, mutator: (draft: MutableModel<Album>) => MutableModel<Album> | void): Album;
+}

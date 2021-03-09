@@ -7,10 +7,7 @@ export const onCreateChat = /* GraphQL */ `
       id
       stylistId
       clientId
-      messages {
-        NewField
-        text
-      }
+      messages
       _version
       _deleted
       _lastChangedAt
@@ -25,10 +22,7 @@ export const onUpdateChat = /* GraphQL */ `
       id
       stylistId
       clientId
-      messages {
-        NewField
-        text
-      }
+      messages
       _version
       _deleted
       _lastChangedAt
@@ -43,10 +37,7 @@ export const onDeleteChat = /* GraphQL */ `
       id
       stylistId
       clientId
-      messages {
-        NewField
-        text
-      }
+      messages
       _version
       _deleted
       _lastChangedAt
@@ -175,6 +166,51 @@ export const onDeleteService = /* GraphQL */ `
       name
       duration
       price
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateAlbum = /* GraphQL */ `
+  subscription OnCreateAlbum($owner: String) {
+    onCreateAlbum(owner: $owner) {
+      id
+      albumCoverPhoto
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateAlbum = /* GraphQL */ `
+  subscription OnUpdateAlbum($owner: String) {
+    onUpdateAlbum(owner: $owner) {
+      id
+      albumCoverPhoto
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteAlbum = /* GraphQL */ `
+  subscription OnDeleteAlbum($owner: String) {
+    onDeleteAlbum(owner: $owner) {
+      id
+      albumCoverPhoto
+      name
       _version
       _deleted
       _lastChangedAt

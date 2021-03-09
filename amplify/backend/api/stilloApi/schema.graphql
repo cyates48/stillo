@@ -1,4 +1,21 @@
-type Chat @model @auth(rules: [{allow: owner, identityClaim: "sub", ownerField: "clientId", operations: [read, create, update, delete]}, {allow: owner, identityClaim: "sub", ownerField: "stylistId", operations: [read, create, update, delete]}]) {
+type Chat
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "clientId"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
   stylistId: String
   clientId: String
@@ -15,7 +32,24 @@ enum AppointmentStatus {
   STYLISTCANCELLED
 }
 
-type Appointment @model @auth(rules: [{allow: owner, identityClaim: "sub", ownerField: "clientId", operations: [read, create, update, delete]}, {allow: owner, identityClaim: "sub", ownerField: "stylistId", operations: [read, create, update, delete]}]) {
+type Appointment
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "clientId"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
   status: AppointmentStatus
   clientId: String
@@ -23,10 +57,35 @@ type Appointment @model @auth(rules: [{allow: owner, identityClaim: "sub", owner
   Service: Service @connection
 }
 
-type Service @model @auth(rules: [{allow: owner, identityClaim: "sub", operations: [read, create, update, delete]}]) {
+type Service
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
   name: String
   duration: String
   price: String
 }
- 
+
+type Album
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  albumCoverPhoto: String
+  name: String
+}

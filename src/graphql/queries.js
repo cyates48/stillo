@@ -7,10 +7,7 @@ export const getChat = /* GraphQL */ `
       id
       stylistId
       clientId
-      messages {
-        NewField
-        text
-      }
+      messages
       _version
       _deleted
       _lastChangedAt
@@ -30,10 +27,7 @@ export const listChats = /* GraphQL */ `
         id
         stylistId
         clientId
-        messages {
-          NewField
-          text
-        }
+        messages
         _version
         _deleted
         _lastChangedAt
@@ -62,10 +56,7 @@ export const syncChats = /* GraphQL */ `
         id
         stylistId
         clientId
-        messages {
-          NewField
-          text
-        }
+        messages
         _version
         _deleted
         _lastChangedAt
@@ -238,6 +229,73 @@ export const syncServices = /* GraphQL */ `
         name
         duration
         price
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const getAlbum = /* GraphQL */ `
+  query GetAlbum($id: ID!) {
+    getAlbum(id: $id) {
+      id
+      albumCoverPhoto
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listAlbums = /* GraphQL */ `
+  query ListAlbums(
+    $filter: ModelAlbumFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAlbums(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        albumCoverPhoto
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const syncAlbums = /* GraphQL */ `
+  query SyncAlbums(
+    $filter: ModelAlbumFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncAlbums(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        albumCoverPhoto
+        name
         _version
         _deleted
         _lastChangedAt
