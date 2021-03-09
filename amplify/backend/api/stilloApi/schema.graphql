@@ -1,7 +1,129 @@
+type ClientNotificationPreferences @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  appointmentStatusChanged: Boolean
+  messageReceived: Boolean
+  appointmentReminder: Boolean
+}
+
+type ClientInfo @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  favorites: String
+}
+
+type ClientHistory @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  notes: String
+  isBlocked: Boolean
+}
+
+type Chat @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  messages: AWSJSON
+}
+
+type Review @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  description: String
+  rating: Int
+}
+
+type History @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  Appointment: Appointment @connection
+  Review: Review @connection
+  createdByClient: Boolean
+}
+
+type Appointment @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  statu: AppointmentStatus
+  Service: Service @connection
+  date: AWSDate
+  time: AWSTime
+  recurrentRule: String
+  duration: Int
+}
+
+enum AppointmentStatus {
+  SCHEDULED
+  COMPLETE
+  NOSHOW
+  CLIENTLATE
+  STYLISTLATE
+  CLIENTCANCELLED
+  STYLISTCANCELLED
+}
+
+type StylistNotficationPreferences @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  appointmentBooked: Boolean
+  appointmentStatusChanged: Boolean
+  reviewReceived: Boolean
+  messageReceived: Boolean
+  appointmentReminder: Boolean
+}
+
+type BookingPreferences @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  bookingInterval: Int
+  lastMinuteBookingLimit: Int
+}
+
+type Blast @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  message: String
+  allClients: Boolean
+  affectedDateTime: AWSJSON
+}
+
+type Override @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  customDuration: Int
+  Service: Service @connection
+}
+
+type TimeOff @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  period: AWSJSON
+  message: String
+}
+
+type WorkSchedule @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  sunday: AWSJSON
+  monday: AWSJSON
+  tuesday: AWSJSON
+  wednesday: AWSJSON
+  thursday: AWSJSON
+  friday: AWSJSON
+  saturday: AWSJSON
+}
+
+type Album @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  name: String
+  coverPhoto: String
+}
+
+type StylistInfo @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+  id: ID!
+  profession: StylistProfession
+  description: String
+  employerName: String
+  address: String
+}
+
+enum StylistProfession {
+  BARBER
+  HAIRDRESSER
+  BRAIDER
+  COLORIST
+}
+
 type Service @model @auth(rules: [{allow: owner, identityClaim: "sub", operations: [read, create, update, delete]}]) {
   id: ID!
   name: String
-  duration: String
-  price: String
+  duration: Int
+  price: Int
 }
  
