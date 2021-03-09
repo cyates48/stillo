@@ -1,42 +1,39 @@
-type ClientNotificationPreferences @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+type Album
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
-  appointmentStatusChanged: Boolean
-  messageReceived: Boolean
-  appointmentReminder: Boolean
+  name: String
+  coverPhoto: String
 }
 
-type ClientInfo @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+type Appointment
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "clientId"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
-  favorites: String
-}
-
-type ClientHistory @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  notes: String
-  isBlocked: Boolean
-}
-
-type Chat @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  messages: AWSJSON
-}
-
-type Review @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  description: String
-  rating: Int
-}
-
-type History @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  Appointment: Appointment @connection
-  Review: Review @connection
-  createdByClient: Boolean
-}
-
-type Appointment @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  statu: AppointmentStatus
+  status: AppointmentStatus
   Service: Service @connection
   date: AWSDate
   time: AWSTime
@@ -54,63 +51,244 @@ enum AppointmentStatus {
   STYLISTCANCELLED
 }
 
-type StylistNotficationPreferences @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
+type Blast
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        ownerField: "clientIds"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  message: String
+  allClients: Boolean
+  affectedDateTime: AWSJSON
+  clientIds: [String]
+}
+
+type BookingPreferences
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  bookingInterval: Int
+  lastMinuteBookingLimit: Int
+}
+
+type Chat
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "clientId"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  messages: AWSJSON
+}
+
+type ClientHistory
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "clientId"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  notes: String
+  isBlocked: Boolean
+}
+
+type ClientInfo
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  favorites: [String]
+}
+
+type ClientNotificationPreferences
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  appointmentStatusChanged: Boolean
+  messageReceived: Boolean
+  appointmentReminder: Boolean
+}
+
+type History
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "clientId"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  Appointment: Appointment @connection
+  Review: Review @connection
+  createdByClient: Boolean
+}
+
+type Override
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        ownerField: "clientId"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  customDuration: Int
+  Service: Service @connection
+}
+
+type Review
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "clientId"
+        operations: [read, create, update, delete]
+      }
+      {
+        allow: owner
+        identityClaim: "sub"
+        ownerField: "stylistId"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  description: String
+  rating: Int
+}
+
+type Service
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  name: String
+  duration: Int
+  price: Int
+}
+
+type StylistInfo
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  profession: StylistProfession
+  description: String
+  employerName: String
+  address: String
+}
+
+type StylistNotficationPreferences
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
   appointmentBooked: Boolean
   appointmentStatusChanged: Boolean
   reviewReceived: Boolean
   messageReceived: Boolean
   appointmentReminder: Boolean
-}
-
-type BookingPreferences @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  bookingInterval: Int
-  lastMinuteBookingLimit: Int
-}
-
-type Blast @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  message: String
-  allClients: Boolean
-  affectedDateTime: AWSJSON
-}
-
-type Override @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  customDuration: Int
-  Service: Service @connection
-}
-
-type TimeOff @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  period: AWSJSON
-  message: String
-}
-
-type WorkSchedule @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  sunday: AWSJSON
-  monday: AWSJSON
-  tuesday: AWSJSON
-  wednesday: AWSJSON
-  thursday: AWSJSON
-  friday: AWSJSON
-  saturday: AWSJSON
-}
-
-type Album @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  name: String
-  coverPhoto: String
-}
-
-type StylistInfo @model @auth(rules: [{allow: owner, operations: [read, create, update, delete]}]) {
-  id: ID!
-  profession: StylistProfession
-  description: String
-  employerName: String
-  address: String
 }
 
 enum StylistProfession {
@@ -120,10 +298,39 @@ enum StylistProfession {
   COLORIST
 }
 
-type Service @model @auth(rules: [{allow: owner, identityClaim: "sub", operations: [read, create, update, delete]}]) {
+type TimeOff
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
   id: ID!
-  name: String
-  duration: Int
-  price: Int
+  period: AWSJSON
+  message: String
 }
- 
+
+type WorkSchedule
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        identityClaim: "sub"
+        operations: [read, create, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  sunday: AWSJSON
+  monday: AWSJSON
+  tuesday: AWSJSON
+  wednesday: AWSJSON
+  thursday: AWSJSON
+  friday: AWSJSON
+  saturday: AWSJSON
+}

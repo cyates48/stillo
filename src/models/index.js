@@ -19,25 +19,25 @@ const StylistProfession = {
   "COLORIST": "COLORIST"
 };
 
-const { ClientNotificationPreferences, ClientInfo, ClientHistory, Chat, Review, History, Appointment, Service, StylistNotficationPreferences, BookingPreferences, Blast, Override, TimeOff, WorkSchedule, Album, StylistInfo } = initSchema(schema);
+const { Album, Appointment, Service, Blast, BookingPreferences, Chat, ClientHistory, ClientInfo, ClientNotificationPreferences, History, Review, Override, StylistInfo, StylistNotficationPreferences, TimeOff, WorkSchedule } = initSchema(schema);
 
 export {
-  ClientNotificationPreferences,
-  ClientInfo,
-  ClientHistory,
-  Chat,
-  Review,
-  History,
+  Album,
   Appointment,
   Service,
-  StylistNotficationPreferences,
-  BookingPreferences,
   Blast,
+  BookingPreferences,
+  Chat,
+  ClientHistory,
+  ClientInfo,
+  ClientNotificationPreferences,
+  History,
+  Review,
   Override,
+  StylistInfo,
+  StylistNotficationPreferences,
   TimeOff,
   WorkSchedule,
-  Album,
-  StylistInfo,
   AppointmentStatus,
   StylistProfession
 };

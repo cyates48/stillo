@@ -1,5 +1,522 @@
 export const schema = {
     "models": {
+        "Album": {
+            "name": "Album",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "coverPhoto": {
+                    "name": "coverPhoto",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Albums",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Appointment": {
+            "name": "Appointment",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "status": {
+                    "name": "status",
+                    "isArray": false,
+                    "type": {
+                        "enum": "AppointmentStatus"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Service": {
+                    "name": "Service",
+                    "isArray": false,
+                    "type": {
+                        "model": "Service"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "appointmentServiceId"
+                    }
+                },
+                "date": {
+                    "name": "date",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "time": {
+                    "name": "time",
+                    "isArray": false,
+                    "type": "AWSTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "recurrentRule": {
+                    "name": "recurrentRule",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "duration": {
+                    "name": "duration",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Appointments",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "clientId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "stylistId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Service": {
+            "name": "Service",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "duration": {
+                    "name": "duration",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "price": {
+                    "name": "price",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Services",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Blast": {
+            "name": "Blast",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "message": {
+                    "name": "message",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "allClients": {
+                    "name": "allClients",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "affectedDateTime": {
+                    "name": "affectedDateTime",
+                    "isArray": false,
+                    "type": "AWSJSON",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "clientIds": {
+                    "name": "clientIds",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Blasts",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "clientIds",
+                                "allow": "owner",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ],
+                                "identityClaim": "cognito:username"
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "stylistId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "BookingPreferences": {
+            "name": "BookingPreferences",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "bookingInterval": {
+                    "name": "bookingInterval",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lastMinuteBookingLimit": {
+                    "name": "lastMinuteBookingLimit",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "BookingPreferences",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Chat": {
+            "name": "Chat",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "messages": {
+                    "name": "messages",
+                    "isArray": false,
+                    "type": "AWSJSON",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Chats",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "clientId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "stylistId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "ClientHistory": {
+            "name": "ClientHistory",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "notes": {
+                    "name": "notes",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isBlocked": {
+                    "name": "isBlocked",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "ClientHistories",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "clientId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "stylistId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "ClientInfo": {
+            "name": "ClientInfo",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "favorites": {
+                    "name": "favorites",
+                    "isArray": true,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "ClientInfos",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "ClientNotificationPreferences": {
             "name": "ClientNotificationPreferences",
             "fields": {
@@ -47,211 +564,13 @@ export const schema = {
                                 "provider": "userPools",
                                 "ownerField": "owner",
                                 "allow": "owner",
+                                "identityClaim": "sub",
                                 "operations": [
                                     "read",
                                     "create",
                                     "update",
                                     "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "ClientInfo": {
-            "name": "ClientInfo",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "favorites": {
-                    "name": "favorites",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "ClientInfos",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "create",
-                                    "update",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "ClientHistory": {
-            "name": "ClientHistory",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "notes": {
-                    "name": "notes",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "isBlocked": {
-                    "name": "isBlocked",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "ClientHistories",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "create",
-                                    "update",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Chat": {
-            "name": "Chat",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "messages": {
-                    "name": "messages",
-                    "isArray": false,
-                    "type": "AWSJSON",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Chats",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "create",
-                                    "update",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Review": {
-            "name": "Review",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "description": {
-                    "name": "description",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "rating": {
-                    "name": "rating",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Reviews",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "create",
-                                    "update",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
+                                ]
                             }
                         ]
                     }
@@ -315,23 +634,35 @@ export const schema = {
                         "rules": [
                             {
                                 "provider": "userPools",
-                                "ownerField": "owner",
+                                "ownerField": "clientId",
                                 "allow": "owner",
+                                "identityClaim": "sub",
                                 "operations": [
                                     "read",
                                     "create",
                                     "update",
                                     "delete"
-                                ],
-                                "identityClaim": "cognito:username"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "stylistId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
                             }
                         ]
                     }
                 }
             ]
         },
-        "Appointment": {
-            "name": "Appointment",
+        "Review": {
+            "name": "Review",
             "fields": {
                 "id": {
                     "name": "id",
@@ -340,12 +671,75 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "statu": {
-                    "name": "statu",
+                "description": {
+                    "name": "description",
                     "isArray": false,
-                    "type": {
-                        "enum": "AppointmentStatus"
-                    },
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "rating": {
+                    "name": "rating",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Reviews",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "provider": "userPools",
+                                "ownerField": "clientId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "stylistId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Override": {
+            "name": "Override",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "customDuration": {
+                    "name": "customDuration",
+                    "isArray": false,
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -359,40 +753,12 @@ export const schema = {
                     "attributes": [],
                     "association": {
                         "connectionType": "BELONGS_TO",
-                        "targetName": "appointmentServiceId"
+                        "targetName": "overrideServiceId"
                     }
-                },
-                "date": {
-                    "name": "date",
-                    "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "time": {
-                    "name": "time",
-                    "isArray": false,
-                    "type": "AWSTime",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "recurrentRule": {
-                    "name": "recurrentRule",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "duration": {
-                    "name": "duration",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
-            "pluralName": "Appointments",
+            "pluralName": "Overrides",
             "attributes": [
                 {
                     "type": "model",
@@ -404,7 +770,7 @@ export const schema = {
                         "rules": [
                             {
                                 "provider": "userPools",
-                                "ownerField": "owner",
+                                "ownerField": "clientId",
                                 "allow": "owner",
                                 "operations": [
                                     "read",
@@ -413,14 +779,26 @@ export const schema = {
                                     "delete"
                                 ],
                                 "identityClaim": "cognito:username"
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "stylistId",
+                                "allow": "owner",
+                                "identityClaim": "sub",
+                                "operations": [
+                                    "read",
+                                    "create",
+                                    "update",
+                                    "delete"
+                                ]
                             }
                         ]
                     }
                 }
             ]
         },
-        "Service": {
-            "name": "Service",
+        "StylistInfo": {
+            "name": "StylistInfo",
             "fields": {
                 "id": {
                     "name": "id",
@@ -429,30 +807,39 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "name": {
-                    "name": "name",
+                "profession": {
+                    "name": "profession",
+                    "isArray": false,
+                    "type": {
+                        "enum": "StylistProfession"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "description": {
+                    "name": "description",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "duration": {
-                    "name": "duration",
+                "employerName": {
+                    "name": "employerName",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "price": {
-                    "name": "price",
+                "address": {
+                    "name": "address",
                     "isArray": false,
-                    "type": "Int",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 }
             },
             "syncable": true,
-            "pluralName": "Services",
+            "pluralName": "StylistInfos",
             "attributes": [
                 {
                     "type": "model",
@@ -540,185 +927,13 @@ export const schema = {
                                 "provider": "userPools",
                                 "ownerField": "owner",
                                 "allow": "owner",
+                                "identityClaim": "sub",
                                 "operations": [
                                     "read",
                                     "create",
                                     "update",
                                     "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "BookingPreferences": {
-            "name": "BookingPreferences",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "bookingInterval": {
-                    "name": "bookingInterval",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "lastMinuteBookingLimit": {
-                    "name": "lastMinuteBookingLimit",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "BookingPreferences",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "create",
-                                    "update",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Blast": {
-            "name": "Blast",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "message": {
-                    "name": "message",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "allClients": {
-                    "name": "allClients",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "affectedDateTime": {
-                    "name": "affectedDateTime",
-                    "isArray": false,
-                    "type": "AWSJSON",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Blasts",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "create",
-                                    "update",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Override": {
-            "name": "Override",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "customDuration": {
-                    "name": "customDuration",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "Service": {
-                    "name": "Service",
-                    "isArray": false,
-                    "type": {
-                        "model": "Service"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "overrideServiceId"
-                    }
-                }
-            },
-            "syncable": true,
-            "pluralName": "Overrides",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "create",
-                                    "update",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
+                                ]
                             }
                         ]
                     }
@@ -765,13 +980,13 @@ export const schema = {
                                 "provider": "userPools",
                                 "ownerField": "owner",
                                 "allow": "owner",
+                                "identityClaim": "sub",
                                 "operations": [
                                     "read",
                                     "create",
                                     "update",
                                     "delete"
-                                ],
-                                "identityClaim": "cognito:username"
+                                ]
                             }
                         ]
                     }
@@ -853,135 +1068,13 @@ export const schema = {
                                 "provider": "userPools",
                                 "ownerField": "owner",
                                 "allow": "owner",
+                                "identityClaim": "sub",
                                 "operations": [
                                     "read",
                                     "create",
                                     "update",
                                     "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Album": {
-            "name": "Album",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "name": {
-                    "name": "name",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "coverPhoto": {
-                    "name": "coverPhoto",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "Albums",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "create",
-                                    "update",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "StylistInfo": {
-            "name": "StylistInfo",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "profession": {
-                    "name": "profession",
-                    "isArray": false,
-                    "type": {
-                        "enum": "StylistProfession"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "description": {
-                    "name": "description",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "employerName": {
-                    "name": "employerName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "address": {
-                    "name": "address",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            },
-            "syncable": true,
-            "pluralName": "StylistInfos",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "provider": "userPools",
-                                "ownerField": "owner",
-                                "allow": "owner",
-                                "operations": [
-                                    "read",
-                                    "create",
-                                    "update",
-                                    "delete"
-                                ],
-                                "identityClaim": "cognito:username"
+                                ]
                             }
                         ]
                     }
@@ -1013,5 +1106,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "1c3d1a9455f2ca59085ea4282f0c3e75"
+    "version": "b80635f8f4f80b4d36593230b959a386"
 };
