@@ -12,6 +12,11 @@ const AppointmentStatus = {
   "STYLISTCANCELLED": "STYLISTCANCELLED"
 };
 
+const MessageStatus = {
+  "FAILED": "FAILED",
+  "SENT": "SENT"
+};
+
 const StylistProfession = {
   "BARBER": "BARBER",
   "HAIRDRESSER": "HAIRDRESSER",
@@ -19,7 +24,7 @@ const StylistProfession = {
   "COLORIST": "COLORIST"
 };
 
-const { Album, Appointment, Service, Blast, BookingPreferences, Chat, ClientHistory, ClientInfo, ClientNotificationPreferences, History, Review, Override, StylistInfo, StylistNotficationPreferences, TimeOff, WorkSchedule } = initSchema(schema);
+const { Album, Appointment, Service, Blast, BookingPreferences, Chat, ClientHistory, ClientInfo, ClientNotificationPreferences, History, Review, Override, StylistInfo, StylistNotficationPreferences, TimeOff, WorkSchedule, TimeTableType, MessageType } = initSchema(schema);
 
 export {
   Album,
@@ -39,5 +44,8 @@ export {
   TimeOff,
   WorkSchedule,
   AppointmentStatus,
-  StylistProfession
+  MessageStatus,
+  StylistProfession,
+  TimeTableType,
+  MessageType
 };

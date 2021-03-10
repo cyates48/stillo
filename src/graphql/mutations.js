@@ -160,7 +160,12 @@ export const createBlast = /* GraphQL */ `
       id
       message
       allClients
-      affectedDateTime
+      affectedDateTime {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       clientIds
       _version
       _deleted
@@ -179,7 +184,12 @@ export const updateBlast = /* GraphQL */ `
       id
       message
       allClients
-      affectedDateTime
+      affectedDateTime {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       clientIds
       _version
       _deleted
@@ -198,7 +208,12 @@ export const deleteBlast = /* GraphQL */ `
       id
       message
       allClients
-      affectedDateTime
+      affectedDateTime {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       clientIds
       _version
       _deleted
@@ -269,7 +284,12 @@ export const createChat = /* GraphQL */ `
   ) {
     createChat(input: $input, condition: $condition) {
       id
-      messages
+      messages {
+        text
+        status
+        date
+        time
+      }
       _version
       _deleted
       _lastChangedAt
@@ -285,7 +305,12 @@ export const updateChat = /* GraphQL */ `
   ) {
     updateChat(input: $input, condition: $condition) {
       id
-      messages
+      messages {
+        text
+        status
+        date
+        time
+      }
       _version
       _deleted
       _lastChangedAt
@@ -301,7 +326,12 @@ export const deleteChat = /* GraphQL */ `
   ) {
     deleteChat(input: $input, condition: $condition) {
       id
-      messages
+      messages {
+        text
+        status
+        date
+        time
+      }
       _version
       _deleted
       _lastChangedAt
@@ -944,7 +974,12 @@ export const createTimeOff = /* GraphQL */ `
   ) {
     createTimeOff(input: $input, condition: $condition) {
       id
-      period
+      period {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       message
       _version
       _deleted
@@ -962,7 +997,12 @@ export const updateTimeOff = /* GraphQL */ `
   ) {
     updateTimeOff(input: $input, condition: $condition) {
       id
-      period
+      period {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       message
       _version
       _deleted
@@ -980,7 +1020,12 @@ export const deleteTimeOff = /* GraphQL */ `
   ) {
     deleteTimeOff(input: $input, condition: $condition) {
       id
-      period
+      period {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       message
       _version
       _deleted

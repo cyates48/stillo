@@ -183,7 +183,12 @@ export const getBlast = /* GraphQL */ `
       id
       message
       allClients
-      affectedDateTime
+      affectedDateTime {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       clientIds
       _version
       _deleted
@@ -204,7 +209,12 @@ export const listBlasts = /* GraphQL */ `
         id
         message
         allClients
-        affectedDateTime
+        affectedDateTime {
+          startDate
+          startTime
+          endDate
+          endTime
+        }
         clientIds
         _version
         _deleted
@@ -234,7 +244,12 @@ export const syncBlasts = /* GraphQL */ `
         id
         message
         allClients
-        affectedDateTime
+        affectedDateTime {
+          startDate
+          startTime
+          endDate
+          endTime
+        }
         clientIds
         _version
         _deleted
@@ -322,7 +337,12 @@ export const getChat = /* GraphQL */ `
   query GetChat($id: ID!) {
     getChat(id: $id) {
       id
-      messages
+      messages {
+        text
+        status
+        date
+        time
+      }
       _version
       _deleted
       _lastChangedAt
@@ -340,7 +360,12 @@ export const listChats = /* GraphQL */ `
     listChats(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        messages
+        messages {
+          text
+          status
+          date
+          time
+        }
         _version
         _deleted
         _lastChangedAt
@@ -367,7 +392,12 @@ export const syncChats = /* GraphQL */ `
     ) {
       items {
         id
-        messages
+        messages {
+          text
+          status
+          date
+          time
+        }
         _version
         _deleted
         _lastChangedAt
@@ -1111,7 +1141,12 @@ export const getTimeOff = /* GraphQL */ `
   query GetTimeOff($id: ID!) {
     getTimeOff(id: $id) {
       id
-      period
+      period {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       message
       _version
       _deleted
@@ -1131,7 +1166,12 @@ export const listTimeOffs = /* GraphQL */ `
     listTimeOffs(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        period
+        period {
+          startDate
+          startTime
+          endDate
+          endTime
+        }
         message
         _version
         _deleted
@@ -1160,7 +1200,12 @@ export const syncTimeOffs = /* GraphQL */ `
     ) {
       items {
         id
-        period
+        period {
+          startDate
+          startTime
+          endDate
+          endTime
+        }
         message
         _version
         _deleted

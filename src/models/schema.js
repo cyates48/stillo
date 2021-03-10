@@ -241,7 +241,9 @@ export const schema = {
                 "affectedDateTime": {
                     "name": "affectedDateTime",
                     "isArray": false,
-                    "type": "AWSJSON",
+                    "type": {
+                        "nonModel": "TimeTableType"
+                    },
                     "isRequired": false,
                     "attributes": []
                 },
@@ -359,10 +361,13 @@ export const schema = {
                 },
                 "messages": {
                     "name": "messages",
-                    "isArray": false,
-                    "type": "AWSJSON",
+                    "isArray": true,
+                    "type": {
+                        "nonModel": "MessageType"
+                    },
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true
                 }
             },
             "syncable": true,
@@ -953,7 +958,9 @@ export const schema = {
                 "period": {
                     "name": "period",
                     "isArray": false,
-                    "type": "AWSJSON",
+                    "type": {
+                        "nonModel": "TimeTableType"
+                    },
                     "isRequired": false,
                     "attributes": []
                 },
@@ -1095,6 +1102,13 @@ export const schema = {
                 "STYLISTCANCELLED"
             ]
         },
+        "MessageStatus": {
+            "name": "MessageStatus",
+            "values": [
+                "FAILED",
+                "SENT"
+            ]
+        },
         "StylistProfession": {
             "name": "StylistProfession",
             "values": [
@@ -1105,6 +1119,75 @@ export const schema = {
             ]
         }
     },
-    "nonModels": {},
-    "version": "b80635f8f4f80b4d36593230b959a386"
+    "nonModels": {
+        "TimeTableType": {
+            "name": "TimeTableType",
+            "fields": {
+                "startDate": {
+                    "name": "startDate",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "startTime": {
+                    "name": "startTime",
+                    "isArray": false,
+                    "type": "AWSTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "endDate": {
+                    "name": "endDate",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "endTime": {
+                    "name": "endTime",
+                    "isArray": false,
+                    "type": "AWSTime",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        },
+        "MessageType": {
+            "name": "MessageType",
+            "fields": {
+                "text": {
+                    "name": "text",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "status": {
+                    "name": "status",
+                    "isArray": false,
+                    "type": {
+                        "enum": "MessageStatus"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "date": {
+                    "name": "date",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "time": {
+                    "name": "time",
+                    "isArray": false,
+                    "type": "AWSTime",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            }
+        }
+    },
+    "version": "748a5f41fecca7a17bf447e52241af7b"
 };

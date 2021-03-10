@@ -10,6 +10,11 @@ export enum AppointmentStatus {
   STYLISTCANCELLED = "STYLISTCANCELLED"
 }
 
+export enum MessageStatus {
+  FAILED = "FAILED",
+  SENT = "SENT"
+}
+
 export enum StylistProfession {
   BARBER = "BARBER",
   HAIRDRESSER = "HAIRDRESSER",
@@ -17,7 +22,21 @@ export enum StylistProfession {
   COLORIST = "COLORIST"
 }
 
+export declare class TimeTableType {
+  readonly startDate?: string;
+  readonly startTime?: string;
+  readonly endDate?: string;
+  readonly endTime?: string;
+  constructor(init: ModelInit<TimeTableType>);
+}
 
+export declare class MessageType {
+  readonly text?: string;
+  readonly status?: MessageStatus | keyof typeof MessageStatus;
+  readonly date?: string;
+  readonly time?: string;
+  constructor(init: ModelInit<MessageType>);
+}
 
 export declare class Album {
   readonly id: string;
@@ -52,7 +71,7 @@ export declare class Blast {
   readonly id: string;
   readonly message?: string;
   readonly allClients?: boolean;
-  readonly affectedDateTime?: string;
+  readonly affectedDateTime?: TimeTableType;
   readonly clientIds?: (string | null)[];
   constructor(init: ModelInit<Blast>);
   static copyOf(source: Blast, mutator: (draft: MutableModel<Blast>) => MutableModel<Blast> | void): Blast;
@@ -68,7 +87,7 @@ export declare class BookingPreferences {
 
 export declare class Chat {
   readonly id: string;
-  readonly messages?: string;
+  readonly messages?: (MessageType | null)[];
   constructor(init: ModelInit<Chat>);
   static copyOf(source: Chat, mutator: (draft: MutableModel<Chat>) => MutableModel<Chat> | void): Chat;
 }
@@ -145,7 +164,7 @@ export declare class StylistNotficationPreferences {
 
 export declare class TimeOff {
   readonly id: string;
-  readonly period?: string;
+  readonly period?: TimeTableType;
   readonly message?: string;
   constructor(init: ModelInit<TimeOff>);
   static copyOf(source: TimeOff, mutator: (draft: MutableModel<TimeOff>) => MutableModel<TimeOff> | void): TimeOff;

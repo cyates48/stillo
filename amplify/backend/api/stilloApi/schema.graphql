@@ -71,7 +71,7 @@ type Blast
   id: ID!
   message: String
   allClients: Boolean
-  affectedDateTime: AWSJSON
+  affectedDateTime: TimeTableType
   clientIds: [String]
 }
 
@@ -110,7 +110,7 @@ type Chat
     ]
   ) {
   id: ID!
-  messages: AWSJSON
+  messages: [MessageType]
 }
 
 type ClientHistory
@@ -190,6 +190,18 @@ type History
   Appointment: Appointment @connection
   Review: Review @connection
   createdByClient: Boolean
+}
+
+enum MessageStatus {
+  FAILED
+  SENT
+}
+
+type MessageType {
+  text: String
+  status: MessageStatus
+  date: AWSDate
+  time: AWSTime
 }
 
 type Override
@@ -310,8 +322,15 @@ type TimeOff
     ]
   ) {
   id: ID!
-  period: AWSJSON
+  period: TimeTableType
   message: String
+}
+
+type TimeTableType {
+  startDate: AWSDate
+  startTime: AWSTime
+  endDate: AWSDate
+  endTime: AWSTime
 }
 
 type WorkSchedule

@@ -139,7 +139,12 @@ export const onCreateBlast = /* GraphQL */ `
       id
       message
       allClients
-      affectedDateTime
+      affectedDateTime {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       clientIds
       _version
       _deleted
@@ -155,7 +160,12 @@ export const onUpdateBlast = /* GraphQL */ `
       id
       message
       allClients
-      affectedDateTime
+      affectedDateTime {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       clientIds
       _version
       _deleted
@@ -171,7 +181,12 @@ export const onDeleteBlast = /* GraphQL */ `
       id
       message
       allClients
-      affectedDateTime
+      affectedDateTime {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       clientIds
       _version
       _deleted
@@ -230,7 +245,12 @@ export const onCreateChat = /* GraphQL */ `
   subscription OnCreateChat($clientId: String, $stylistId: String) {
     onCreateChat(clientId: $clientId, stylistId: $stylistId) {
       id
-      messages
+      messages {
+        text
+        status
+        date
+        time
+      }
       _version
       _deleted
       _lastChangedAt
@@ -243,7 +263,12 @@ export const onUpdateChat = /* GraphQL */ `
   subscription OnUpdateChat($clientId: String, $stylistId: String) {
     onUpdateChat(clientId: $clientId, stylistId: $stylistId) {
       id
-      messages
+      messages {
+        text
+        status
+        date
+        time
+      }
       _version
       _deleted
       _lastChangedAt
@@ -256,7 +281,12 @@ export const onDeleteChat = /* GraphQL */ `
   subscription OnDeleteChat($clientId: String, $stylistId: String) {
     onDeleteChat(clientId: $clientId, stylistId: $stylistId) {
       id
-      messages
+      messages {
+        text
+        status
+        date
+        time
+      }
       _version
       _deleted
       _lastChangedAt
@@ -815,7 +845,12 @@ export const onCreateTimeOff = /* GraphQL */ `
   subscription OnCreateTimeOff($owner: String) {
     onCreateTimeOff(owner: $owner) {
       id
-      period
+      period {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       message
       _version
       _deleted
@@ -830,7 +865,12 @@ export const onUpdateTimeOff = /* GraphQL */ `
   subscription OnUpdateTimeOff($owner: String) {
     onUpdateTimeOff(owner: $owner) {
       id
-      period
+      period {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       message
       _version
       _deleted
@@ -845,7 +885,12 @@ export const onDeleteTimeOff = /* GraphQL */ `
   subscription OnDeleteTimeOff($owner: String) {
     onDeleteTimeOff(owner: $owner) {
       id
-      period
+      period {
+        startDate
+        startTime
+        endDate
+        endTime
+      }
       message
       _version
       _deleted
